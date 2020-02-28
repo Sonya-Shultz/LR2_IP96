@@ -80,7 +80,8 @@ void findefile( char* ans, string ans2, char ans3, char** name, int number )
     if (ans3=='y' or ans3=='Y'){ans2+="dir";}
         else {ans2+="ls ";}
     ans2+=ans;
-    ans2+="/*.csv > NameOfAllFile.txt\n";
+    if (ans3=='y' or ans3=='Y'){ans2+="\*.csv/B >NameOfAllFile.txt\n";}
+    else {ans2+="/*.csv > NameOfAllFile.txt\n";}
     char*q = new char[100];
     int i=0;
     while (ans2[i]!='\n')
