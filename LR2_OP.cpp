@@ -1,3 +1,6 @@
+п»ї// ConsoleApplication1.cpp : Р­С‚РѕС‚ С„Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ С„СѓРЅРєС†РёСЋ "main". Р—РґРµСЃСЊ РЅР°С‡РёРЅР°РµС‚СЃСЏ Рё Р·Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ РІС‹РїРѕР»РЅРµРЅРёРµ РїСЂРѕРіСЂР°РјРјС‹.
+//
+
 #include <iostream>
 #include <cstring>
 //#include <windows.h>
@@ -6,33 +9,34 @@ using namespace std;
 #include "Reedfrom.hpp"
 
 int sizeSumm(int* tempArrSize, int tempNumb);
-void timeAddArr( long int** timeArr, int timeSize);
-void deleteBigArr( long int** tampleArr, int tempSize);
+void timeAddArr(long int** timeArr, int timeSize);
+void deleteBigArr(long int** tampleArr, int tempSize);
 void timeAddChar(char** timeArr, int number);
 
 int main()
 {
-	
 
-	int number=0; //кількість файлів .csv
+	string ans2;
+	int number = 0; //ГЄВіГ«ГјГЄВіГ±ГІГј ГґГ Г©Г«ВіГў .csv
 	cin >> number;
-    char** name = new char* [number];
-    timeAddChar(name, number);
+	char** name = new char* [number];
+	timeAddChar(name, number);
 	int* arrSize = new int[number];
-    int size;
-    way( arrSize, name, number);
+	int size;
+	ans2=way(arrSize, name, number);
 	size = sizeSumm(arrSize, number);
-	char** countryArr = new char* [size];		//создание масива стран
-    timeAddChar(countryArr, size);
-    
-	long int** voteArr = new long int* [size];		// создание масива голосов
+	cout << size;
+	char** countryArr = new char* [size];		//Г±Г®Г§Г¤Г Г­ГЁГҐ Г¬Г Г±ГЁГўГ  Г±ГІГ°Г Г­
+	timeAddChar(countryArr, size);
+
+	long int** voteArr = new long int* [size];		// Г±Г®Г§Г¤Г Г­ГЁГҐ Г¬Г Г±ГЁГўГ  ГЈГ®Г«Г®Г±Г®Гў
 	timeAddArr(voteArr, size);
-    
-    readallfile(name, arrSize, number, countryArr,voteArr );
 
-	int* pointArr = new int[size];		//создания масива для балов
+	readallfile(name, arrSize, number, countryArr, voteArr, ans2);
 
-	int marksArr[10];					// масив 10 топ стран
+	int* pointArr = new int[size];		//Г±Г®Г§Г¤Г Г­ГЁГї Г¬Г Г±ГЁГўГ  Г¤Г«Гї ГЎГ Г«Г®Гў
+
+	int marksArr[10];					// Г¬Г Г±ГЁГў 10 ГІГ®ГЇ Г±ГІГ°Г Г­
 
 	deleteBigArr(voteArr, size);
 	delete[] arrSize;
@@ -49,24 +53,21 @@ int sizeSumm(int* tempArrSize, int tempNumb) {
 	return sum;
 }
 
-void timeAddArr( long int** timeArr, int timeSize) {		//создание двумерного массива
+void timeAddArr(long int** timeArr, int timeSize) {		//Г±Г®Г§Г¤Г Г­ГЁГҐ Г¤ГўГіГ¬ГҐГ°Г­Г®ГЈГ® Г¬Г Г±Г±ГЁГўГ 
 	for (int i = 0; i < timeSize; i++) {
 		timeArr[i] = new long int[timeSize];
 	}
 }
 
 void timeAddChar(char** timeArr, int number) {
-    for (int i = 0; i < number; i++) {
-        timeArr[i] = new char [50];
-    }
+	for (int i = 0; i < number; i++) {
+		timeArr[i] = new char[50];
+	}
 }
 
-void deleteBigArr( long int** tampleArr, int tempSize) {   //чистка
+void deleteBigArr(long int** tampleArr, int tempSize) {   //Г·ГЁГ±ГІГЄГ 
 	for (int i = 0; i < tempSize; i++) {
 		delete[] tampleArr[i];
 	}
 	delete[] tampleArr;
 }
-
-
-
