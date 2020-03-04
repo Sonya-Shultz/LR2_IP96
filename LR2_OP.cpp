@@ -3,47 +3,68 @@
 
 #include <iostream>
 #include <cstring>
-//#include <windows.h>
+
 using namespace std;
-
+#include "Header.h"
 #include "Reedfrom.hpp"
+#include "OutPut.hpp"
 
-int sizeSumm(int* tempArrSize, int tempNumb);
+int sizeSmallSumm(int* tempArrSize, int tempNumb);
 void timeAddArr(long int** timeArr, int timeSize);
-void deleteBigArr(long int** tampleArr, int tempSize);
 void timeAddChar(char** timeArr, int number);
 
 int main()
 {
 
 	string ans2;
-	int number = 0; //ê³ëüê³ñòü ôàéë³â .csv
+	int number = 0; 
+	cout << "Number of file: ";
 	cin >> number;
-	char** name = new char* [number];
+	char** name = new char* [number];		//number of file
 	timeAddChar(name, number);
-	int* arrSize = new int[number];
+	int* arrSize = new int[number];		
 	int size;
 	ans2=way(arrSize, name, number);
-	size = sizeSumm(arrSize, number);
+	size = sizeSmallSumm(arrSize, number);
 	cout << size;
-	char** countryArr = new char* [size];		//ñîçäàíèå ìàñèâà ñòðàí
+
+	char** countryArr = new char* [size];		// Arr of country
 	timeAddChar(countryArr, size);
 
-	long int** voteArr = new long int* [size];		// ñîçäàíèå ìàñèâà ãîëîñîâ
+	long int** voteArr = new long int* [size];		// Arr with number of vote
 	timeAddArr(voteArr, size);
-
 	readallfile(name, arrSize, number, countryArr, voteArr, ans2);
+	showArr(voteArr, size);
 
-	int* pointArr = new int[size];		//ñîçäàíèÿ ìàñèâà äëÿ áàëîâ
+	
 
-	int marksArr[10];					// ìàñèâ 10 òîï ñòðàí
+	int** resultArr = new int* [size];	 // the sum of marks
+	timeAddArr(resultArr, size);
+
+	int marksArr[10];			
+
+	long int** markArr = new long int* [size];		//Arr with marks
+	for (int i = 0; i < size; i++) { markArr[i] = new long int[size]; }
+
+	long int** firstArr = new long int* [size];			//Arr too safe first data
+	for (int i = 0; i < size; i++) { firstArr[i] = new long int[size]; }
+
+	zirroArr(firstArr, size);
+	markPoint(voteArr, firstArr, size);
+	showArr(firstArr, size);
+	summBigArr(firstArr, resultArr, size);
+	bublesort(resultArr, size);
+	result(resultArr, countryArr);
+	
 
 	deleteBigArr(voteArr, size);
+	deleteBigArr(firstArr, size);
+	deleteBigArr(markArr, size);
 	delete[] arrSize;
 	delete[] countryArr;
 }
 
-int sizeSumm(int* tempArrSize, int tempNumb) {
+int sizeSmallSumm(int* tempArrSize, int tempNumb) {
 	int a = 0;
 	int sum = 0;
 	for (int i = 0; i < tempNumb; i++) {
@@ -53,7 +74,7 @@ int sizeSumm(int* tempArrSize, int tempNumb) {
 	return sum;
 }
 
-void timeAddArr(long int** timeArr, int timeSize) {		//ñîçäàíèå äâóìåðíîãî ìàññèâà
+void timeAddArr(long int** timeArr, int timeSize) {		
 	for (int i = 0; i < timeSize; i++) {
 		timeArr[i] = new long int[timeSize];
 	}
@@ -65,9 +86,3 @@ void timeAddChar(char** timeArr, int number) {
 	}
 }
 
-void deleteBigArr(long int** tampleArr, int tempSize) {   //÷èñòêà
-	for (int i = 0; i < tempSize; i++) {
-		delete[] tampleArr[i];
-	}
-	delete[] tampleArr;
-}
