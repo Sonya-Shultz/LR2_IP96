@@ -4,7 +4,7 @@
 
 string oneryad(int** balisort, char** name, int i, string ans)
 {
-	ans = name[balisort[i][1]];
+    ans='"'; ans+=name[balisort[i][1]]; ans+='"';
 	ans += ",";
 	return ans;
 }
